@@ -21,45 +21,35 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-                title: Text('Ingrese datos'),
-                content: Container(
-                  height: 130,
-                  child: Column(
-                    children: [
-                      TextField(
-                        maxLength: 10,
-                        controller: page_2_text_controller,
-                        decoration:
-                            InputDecoration(label: Text('Ingrese palabra')),
+              title: Text('Ingrese datos'),
+              content: TextField(
+                maxLength: 10,
+                controller: page_2_text_controller,
+                decoration: InputDecoration(label: Text('Ingrese palabra')),
+              ),
+              actions: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancelar'),
+                ),
+                MaterialButton(
+                  onPressed: () async {
+                    page_2_text = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Pagina2(
+                          text_rec: page_2_text_controller.text,
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          MaterialButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Cancelar'),
-                          ),
-                          MaterialButton(
-                            onPressed: () async {
-                              page_2_text = await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => Pagina2(
-                                    text_rec: page_2_text_controller.text,
-                                  ),
-                                ),
-                              );
-                              Navigator.of(context).pop();
-                              setState(() {});
-                            },
-                            child: Text('Aceptar'),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ));
+                    );
+                    Navigator.of(context).pop();
+                    setState(() {});
+                  },
+                  child: Text('Aceptar'),
+                )
+              ],
+            );
           });
     }
 
